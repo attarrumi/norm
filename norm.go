@@ -74,3 +74,23 @@ func RobustScale(data []float64) []float64 {
 	}
 	return result
 }
+
+func DecimalScaling(data []float64) []float64 {
+	max := math.Max(math.Abs(data[0]), math.Abs(data[len(data)-1]))
+	var j float64
+	if max > 1 {
+		for max >= 1 {
+			max = max / 10
+			j++
+		}
+	} else {
+		for max < 0.1 {
+			max = max * 10
+			j--
+		}
+	}
+	for i := 0; i < len(data); i++ {
+		data[i] = data[i] / math.Pow(10, j)
+	}
+	return data
+}
